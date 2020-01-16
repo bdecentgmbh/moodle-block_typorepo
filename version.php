@@ -14,18 +14,19 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
-
 /**
- * Progress Bar block version details
+ * Version information
  *
- * @package    block
- * @subpackage typorepo
- * @copyright  2017 LEARNTUBE GbR <http://learntube.de>
- * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @package   block_typorepo
+ * @copyright 2020 bdecent gmbh <https://bdecent.de>
+ * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-$plugin->version   = 2017071901;
+$plugin->version   = 2020011400;
 $plugin->requires  = 2013051400;
 $plugin->maturity  = MATURITY_STABLE;
-$plugin->release   = '3.3.+';
+$plugin->release   = '1.0';
 $plugin->component = 'block_typorepo';
+$plugin->dependencies = [
+    'mod_typorepo' => 2020011400
+];

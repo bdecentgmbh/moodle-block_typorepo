@@ -1,14 +1,29 @@
 <?php
+// This file is part of Moodle - http://moodle.org/
+//
+// Moodle is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+//
+// Moodle is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Form for editing typorepo block instances.
+ * Version information
  *
  * @package   block_typorepo
- * @copyright 2011 Giedrius Balbieris {@link http://metalot.com}
+ * @copyright 2020 bdecent gmbh <https://bdecent.de>
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 class block_typorepo_edit_form extends block_edit_form {
+
     protected function specific_definition($mform) {
 	    global $CFG, $USER, $COURSE;
 
@@ -19,9 +34,9 @@ class block_typorepo_edit_form extends block_edit_form {
         $id = isset($_GET['update']) ? $_GET['update'] : '';
         $token = MD5($id . $USER->username . $USER->firstname . $USER->lastname . $course . $time . $USER->email . get_config('typorepo', 'typorepo_secret'));
 
-	$mform->addElement('html', '<iframe src="' . get_config('typorepo', 'typorepo_url') . '&token=' . $token . '&time=' . $time . '&moodlemodid=' . $id . '&login=' . $USER->username . '&firstname=' .  $USER->firstname . '&lastname=' .  $USER->lastname . '&courseid=' .  $course . '&email=' .  $USER->email . '" frameborder="0" scrolling="' . get_config('typorepo', 'typorepo_scrolling') . '" width="' . get_config('typorepo', 'typorepo_width') . '" height="' . get_config('typorepo', 'typorepo_height') . '"> </iframe>');
+	    $mform->addElement('html', '<iframe src="' . get_config('typorepo', 'typorepo_url') . '&token=' . $token . '&time=' . $time . '&moodlemodid=' . $id . '&login=' . $USER->username . '&firstname=' .  $USER->firstname . '&lastname=' .  $USER->lastname . '&courseid=' .  $course . '&email=' .  $USER->email . '" frameborder="0" scrolling="' . get_config('typorepo', 'typorepo_scrolling') . '" width="' . get_config('typorepo', 'typorepo_width') . '" height="' . get_config('typorepo', 'typorepo_height') . '"> </iframe>');
 
-        
+
 	    $woptions = array('frameset' => get_string('frameset', 'typorepo'), 'newwindow' => get_string('newwindow', 'typorepo'), 'iframe' => get_string('iframe', 'typorepo'));
 
         // Fields for editing HTML block title and contents.
@@ -33,15 +48,9 @@ class block_typorepo_edit_form extends block_edit_form {
         $mform->addElement('text', 'config_url', get_string('url', 'block_typorepo'));
         $mform->setType('config_url', PARAM_URL);
 
-        $mform->addElement('text', 'config_height', get_string('height', 'block_typorepo')); 
+        $mform->addElement('text', 'config_height', get_string('height', 'block_typorepo'));
         $mform->setType('config_height', PARAM_INT);
         $mform->setDefault('config_height', 150);
-	
-	    $features = array('groups'=>true, 'groupings'=>true, 'groupmembersonly'=>true,
-                          'outcomes'=>false, 'gradecat'=>false, 'idnumber'=>false);
-//        $this->standard_coursemodule_elements($features);
-       
-//        $this->add_action_buttons();
 
         //-------------------------------------------------------
         $mform->addElement('hidden', 'revision');

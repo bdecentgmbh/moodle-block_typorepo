@@ -1,16 +1,28 @@
 <?php
+// This file is part of Moodle - http://moodle.org/
+//
+// Moodle is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+//
+// Moodle is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * @package typorepo
- * @copyright 2012 Giedrius Balbieris {@link http://metalot.com}
+ * @package   block_typorepo
+ * @copyright 2020 bdecent gmbh <https://bdecent.de>
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 /**
  * Specialised restore task for the typorepo block
  * (requires encode_content_links in some configdata attrs)
- *
- * TODO: Finish phpdocs
  */
 class restore_typorepo_block_task extends restore_block_task {
 
@@ -21,16 +33,16 @@ class restore_typorepo_block_task extends restore_block_task {
     }
 
     public function get_fileareas() {
-        return array('content');
+        return ['content'];
     }
 
     public function get_configdata_encoded_attributes() {
-        return array('text'); // We need to encode some attrs in configdata
+        return ['text']; // We need to encode some attrs in configdata
     }
 
     static public function define_decode_contents() {
 
-        $contents = array();
+        $contents = [];
 
         $contents[] = new restore_html_block_decode_content('block_instances', 'configdata', 'block_instance');
 
@@ -38,7 +50,7 @@ class restore_typorepo_block_task extends restore_block_task {
     }
 
     static public function define_decode_rules() {
-        return array();
+        return [];
     }
 }
 
@@ -62,7 +74,7 @@ class restore_typorepo_block_decode_content extends restore_decode_content {
                  WHERE b.backupid = ?
                    AND b.itemname = ?
                    AND t.blockname = 'typorepo'";
-        $params = array($this->restoreid, $this->mapping);
+        $params = [$this->restoreid, $this->mapping];
         return ($DB->get_recordset_sql($sql, $params));
     }
 
