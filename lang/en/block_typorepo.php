@@ -21,34 +21,9 @@
  */
 
 $string['add'] = 'Add a typo3 page';
-$string['configcontent'] = 'Content';
-$string['configtitle'] = 'Block title';
-$string['displaysettings'] = 'Typo3 repository display settings';
-$string['frameset'] = 'Display typo3 repository in a frameset';
-$string['framesetdesc'] = 'Display typo3 repository in a frameset (same as resource).';
+$string['configtitle'] = 'Typo 3 block title';
 $string['height'] = 'Height';
-$string['heightdesc'] = 'iframe or new window height in pixels.';
-$string['iframe'] = 'Display typo3 repository in an iframe';
-$string['iframedesc'] = 'Display typo3 repository in an iframe. Will use height/width from input below.';
-$string['integrationsettings'] = 'Typo3 repository integration settings';
-$string['linksaved'] = 'Link saved';
-$string['modulename'] = 'Typo3 repository';
-$string['modulenameplural'] = 'Typo3 pages';
-$string['modulenameshort'] = 'Typo3 repository';
-$string['newwindow'] = 'Display typo3 repository in a new window';
-$string['newwindowdesc'] = 'Display typo3 repository in a new window. Will use height/width from input below.';
-$string['opennewwindow'] = 'If window does not open, please click here';
-$string['pluginadministration'] = 'Typo3 repository administration';
 $string['pluginname'] = 'Typo3 Repository Block';
-$string['scrolling'] = 'Scrolling';
-$string['scrollingdesc'] = 'iframe scrolling: yes/no/auto.';
-$string['typopageurl'] = 'Typo3 page base url';
-$string['typopageurldesc'] = 'URL to the Typo3 index page from which every page is displayed. It will be appended by all secured id etc parameters automatically.';
 $string['typorepo:addinstance'] = 'Add a new typorepo block';
 $string['typorepo:myaddinstance'] = 'Add a new typorepo block to the My Moodle page';
-$string['typosecret'] = 'Integration secret';
-$string['typosecretdesc'] = 'Secret phrase for integration encryption token generation.';
 $string['url'] = 'Typo3 repository url';
-$string['urldesc'] = 'URL to the Typo3 moodle ready sitemap module. It will be appended by all secured id etc parameters automatically.';
-$string['width'] = 'Width';
-$string['widthdesc'] = 'iframe or new window width in pixels.';

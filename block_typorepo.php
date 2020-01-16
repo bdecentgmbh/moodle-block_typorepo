@@ -20,26 +20,56 @@
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
+/**
+ * Main block class.
+ */
 class block_typorepo extends block_base {
 
+    /**
+     * Initialize block.
+     *
+     * @throws coding_exception
+     */
     function init() {
         $this->title = get_string('pluginname', 'block_typorepo');
     }
 
+    /**
+     * Which page types this block may appear on.
+     *
+     * @return array
+     */
     function applicable_formats() {
-        return array('all' => true);
+        return ['all' => true];
     }
 
+    /**
+     * Set title to configured title (if set).
+     *
+     * @throws coding_exception
+     */
     function specialization() {
-        $this->title = isset($this->config->title) ? format_string($this->config->title) : format_string(get_string('add', 'block_typorepo'));
+        $this->title = isset($this->config->title) ? format_string($this->config->title) :
+            format_string(get_string('add', 'block_typorepo'));
     }
 
+    /**
+     * Allow multiple block instances on the same page.
+     *
+     * @return bool
+     */
     function instance_allow_multiple() {
         return true;
     }
 
+    /**
+     * Build and return block content object.
+     *
+     * @return stdClass
+     * @throws dml_exception
+     */
     function get_content() {
-        global $CFG, $USER, $COURSE;
+        global $USER, $COURSE;
 
         if ($this->content !== null) {
             return $this->content;
@@ -47,15 +77,25 @@ class block_typorepo extends block_base {
 
         $this->content = new stdClass();
 
-        // calculate the url
+        // Calculate the url.
         $time = time();
-	// '0' .
-        $token = MD5($USER->username . $USER->firstname . $USER->lastname . $COURSE->id . $time . $USER->email . get_config('typorepo', 'typorepo_secret'));
-	if(isset($this->config->url)) {
-		$fullurl = $this->config->url . '&token=' . $token . '&time=' . $time . '&login=' . $USER->username . '&firstname=' .  $USER->firstname . '&lastname=' .  $USER->lastname . '&courseid=' .  $COURSE->id . '&email=' .  $USER->email;
+
+        $token = MD5($USER->username . $USER->firstname . $USER->lastname . $COURSE->id . $time . $USER->email .
+            get_config('typorepo', 'secret'));
+
+	    if(isset($this->config->url)) {
+		    $fullurl = $this->config->url .
+                '&token=' . $token .
+                '&time=' . $time .
+                '&login=' . $USER->username .
+                '&firstname=' .  $USER->firstname .
+                '&lastname=' .  $USER->lastname .
+                '&courseid=' .  $COURSE->id .
+                '&email=' .  $USER->email;
 
 
-		    $this->content->text = '<iframe style="margin-left: 0px;" src="' . $fullurl . '" frameborder="0" scrolling=no width="100%"  height="' . $this->config->height . '"> </iframe>';
+		    $this->content->text = '<iframe style="margin-left: 0px;" src="' . $fullurl . '" frameborder="0" 
+		        scrolling=no width="100%"  height="' . $this->config->height . '"> </iframe>';
 		}
         return $this->content;
     }
