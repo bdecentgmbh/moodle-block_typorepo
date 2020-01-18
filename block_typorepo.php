@@ -77,14 +77,18 @@ class block_typorepo extends block_base {
 
         $this->content = new stdClass();
 
+        if (!has_capability('block/typorepo:view', $this->context)) {
+            return $this->content;
+        }
+
         // Calculate the url.
         $time = time();
 
         $token = MD5($USER->username . $USER->firstname . $USER->lastname . $COURSE->id . $time . $USER->email .
-            get_config('typorepo', 'secret'));
+            get_config('typorepo', 'typorepo_secret'));
 
-	    if(isset($this->config->url)) {
-		    $fullurl = $this->config->url .
+        if(isset($this->config->url)) {
+            $fullurl = $this->config->url .
                 '&token=' . $token .
                 '&time=' . $time .
                 '&login=' . $USER->username .
@@ -93,10 +97,9 @@ class block_typorepo extends block_base {
                 '&courseid=' .  $COURSE->id .
                 '&email=' .  $USER->email;
 
-
-		    $this->content->text = '<iframe style="margin-left: 0px;" src="' . $fullurl . '" frameborder="0" 
-		        scrolling=no width="100%"  height="' . $this->config->height . '"> </iframe>';
-		}
+            $this->content->text = '<iframe style="margin-left: 0px;" src="' . $fullurl . '" frameborder="0" 
+                scrolling=no width="100%"  height="' . $this->config->height . '"> </iframe>';
+        }
         return $this->content;
     }
 

@@ -22,6 +22,8 @@
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
+use mod_typorepo\typo3;
+
 /**
  * Block instance form.
  */
@@ -35,33 +37,18 @@ class block_typorepo_edit_form extends block_edit_form {
      * @throws dml_exception
      */
     protected function specific_definition($mform) {
-	    global $USER;
 
-        $time = time();
-        $course = isset($_GET['course']) ? $_GET['course'] : '';
-        $id = isset($_GET['update']) ? $_GET['update'] : '';
-        $token = MD5($id .
-            $USER->username .
-            $USER->firstname .
-            $USER->lastname .
-            $course .
-            $time .
-            $USER->email .
-            get_config('typorepo', 'secret'));
+	    $typo3url = typo3::build_url(optional_param('course', '', PARAM_INT), optional_param('update', '', PARAM_INT));
 
-	    $mform->addElement('html', '<iframe src="' . get_config('typorepo', 'url') .
-            '&token=' . $token .
-            '&time=' . $time .
-            '&moodlemodid=' . $id .
-            '&login=' . $USER->username .
-            '&firstname=' .  $USER->firstname .
-            '&lastname=' .  $USER->lastname .
-            '&courseid=' .  $course .
-            '&email=' .  $USER->email . '" frameborder="0" scrolling="' . get_config('typorepo', 'scrolling') .
-            '" width="' . get_config('typorepo', 'width') . '" 
-            height="' . get_config('typorepo', 'height') . '"
-            class="typo-embed"> </iframe>');
-
+	    $iframe = \html_writer::tag('iframe', '', [
+	        'src' => $typo3url,
+            'frameborder' => 0,
+            'scrolling' => get_config('typorepo', 'scrolling'),
+            'width' => get_config('typorepo', 'width'),
+            'height' => get_config('typorepo', 'height'),
+            'class' => 'typo-embed'
+        ]);
+	    $mform->addElement('html', $iframe);
 
         // Fields for editing HTML block title and contents.
         $mform->addElement('header', 'configheader', get_string('blocksettings', 'block'));
