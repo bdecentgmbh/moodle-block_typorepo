@@ -23,7 +23,7 @@
  */
 
 $plugin->version   = 2020011401;
-$plugin->requires  = 2013051400;
+$plugin->requires  = 2017051509;
 $plugin->maturity  = MATURITY_STABLE;
 $plugin->release   = '1.0';
 $plugin->component = 'block_typorepo';
