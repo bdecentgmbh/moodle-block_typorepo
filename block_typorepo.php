@@ -15,10 +15,14 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
+ * Main block class.
+ *
  * @package   block_typorepo
  * @copyright 2020 bdecent gmbh <https://bdecent.de>
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
+
+defined('MOODLE_INTERNAL') || die();
 
 /**
  * Main block class.
@@ -30,7 +34,7 @@ class block_typorepo extends block_base {
      *
      * @throws coding_exception
      */
-    function init() {
+    public function init() {
         $this->title = get_string('pluginname', 'block_typorepo');
     }
 
@@ -39,7 +43,7 @@ class block_typorepo extends block_base {
      *
      * @return array
      */
-    function applicable_formats() {
+    public function applicable_formats() {
         return ['all' => true];
     }
 
@@ -48,7 +52,7 @@ class block_typorepo extends block_base {
      *
      * @throws coding_exception
      */
-    function specialization() {
+    public function specialization() {
         $this->title = isset($this->config->title) ? format_string($this->config->title) :
             format_string(get_string('add', 'block_typorepo'));
     }
@@ -58,7 +62,7 @@ class block_typorepo extends block_base {
      *
      * @return bool
      */
-    function instance_allow_multiple() {
+    public function instance_allow_multiple() {
         return true;
     }
 
@@ -68,7 +72,7 @@ class block_typorepo extends block_base {
      * @return stdClass
      * @throws dml_exception
      */
-    function get_content() {
+    public function get_content() {
         global $USER, $COURSE;
 
         if ($this->content !== null) {
@@ -84,10 +88,10 @@ class block_typorepo extends block_base {
         // Calculate the url.
         $time = time();
 
-        $token = MD5($USER->username . $USER->firstname . $USER->lastname . $COURSE->id . $time . $USER->email .
+        $token = md5($USER->username . $USER->firstname . $USER->lastname . $COURSE->id . $time . $USER->email .
             get_config('typorepo', 'typorepo_secret'));
 
-        if(isset($this->config->url)) {
+        if (isset($this->config->url)) {
             $fullurl = $this->config->url .
                 '&token=' . $token .
                 '&time=' . $time .
@@ -97,8 +101,8 @@ class block_typorepo extends block_base {
                 '&courseid=' .  $COURSE->id .
                 '&email=' .  $USER->email;
 
-            $this->content->text = '<iframe style="margin-left: 0px;" src="' . $fullurl . '" frameborder="0" 
-                scrolling=no width="100%"  height="' . $this->config->height . '"> </iframe>';
+            $this->content->text = '<iframe style="margin-left: 0px;" src="' . $fullurl . '" frameborder="0" ' .
+                'scrolling=no width="100%"  height="' . $this->config->height . '"> </iframe>';
         }
         return $this->content;
     }

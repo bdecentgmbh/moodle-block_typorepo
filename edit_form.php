@@ -24,6 +24,8 @@
 
 use mod_typorepo\typo3;
 
+defined('MOODLE_INTERNAL') || die;
+
 /**
  * Block instance form.
  */
@@ -38,17 +40,17 @@ class block_typorepo_edit_form extends block_edit_form {
      */
     protected function specific_definition($mform) {
 
-	    $typo3url = typo3::build_url(optional_param('course', '', PARAM_INT), optional_param('update', '', PARAM_INT));
+        $typo3url = typo3::build_url(optional_param('course', '', PARAM_INT), optional_param('update', '', PARAM_INT));
 
-	    $iframe = \html_writer::tag('iframe', '', [
-	        'src' => $typo3url,
+        $iframe = \html_writer::tag('iframe', '', [
+            'src' => $typo3url,
             'frameborder' => 0,
             'scrolling' => get_config('typorepo', 'scrolling'),
             'width' => get_config('typorepo', 'width'),
             'height' => get_config('typorepo', 'height'),
             'class' => 'typo-embed'
         ]);
-	    $mform->addElement('html', $iframe);
+        $mform->addElement('html', $iframe);
 
         // Fields for editing HTML block title and contents.
         $mform->addElement('header', 'configheader', get_string('blocksettings', 'block'));
